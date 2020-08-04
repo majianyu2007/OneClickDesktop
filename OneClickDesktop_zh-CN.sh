@@ -364,18 +364,18 @@ END
 	if [ "x$confirm_letsencrypt" = "xY" ] || [ "x$confirm_letsencrypt" = "xy" ] ; then
 		echo "请输入一个邮箱地址:"
 		read le_email
-		certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email $le_email -d $guacamole_hostname
+		certbot --nginx --agree-tos --hsts --staple-ocsp --email $le_email -d $guacamole_hostname
 		echo 
 		if [ -f /etc/letsencrypt/live/$guacamole_hostname/fullchain.pem ] ; then
 			say @B"恭喜！Let's Encrypt SSL证书安装成功！" green
 			say @B"开始使用您的远程桌面，请在浏览器中访问 https://${guacamole_hostname}!" green
 		else
 			say "Let's Encrypt SSL证书安装失败。" red
-			say @B"您可以请手动执行 \"certbot --nginx --agree-tos --redirect --hsts --staple-ocsp --email $le_email -d $guacamole_hostname\"." yellow
+			say @B"您可以请手动执行 \"certbot --nginx --agree-tos --hsts --staple-ocsp --email $le_email -d $guacamole_hostname\"." yellow
 			say @B"开始使用您的远程桌面，请在浏览器中访问 http://${guacamole_hostname}!" green
 		fi
 	else
-		say @B"好的，如果您之后需要安装Let's Encrypt证书，请手动执行 \"certbot --nginx --agree-tos --redirect --hsts --staple-ocsp -d $guacamole_hostname\"." yellow
+		say @B"好的，如果您之后需要安装Let's Encrypt证书，请手动执行 \"certbot --nginx --agree-tos --hsts --staple-ocsp -d $guacamole_hostname\"." yellow
 		say @B"开始使用您的远程桌面，请在浏览器中访问 http://${guacamole_hostname}!" green
 	fi
 	say @B"您的用户名是$guacamole_username，密码是 $guacamole_password_prehash。" green
